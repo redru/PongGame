@@ -9,7 +9,7 @@ var gameEngine = null;
 var newPos = null;
 
 $(document).ready(function DocumentReady() {
-    gameEngine = new GameEngine(FPS, true);
+    gameEngine = new GameEngine(FPS, false);
     gameEngine.drawCallback = DrawCallback;
     gameEngine.preDrawCallback = PreDrawCallback;
 
@@ -28,7 +28,7 @@ $(document).ready(function DocumentReady() {
 });
 
 function PreDrawCallback() {
-    ball.move(2, 2);
+
 }
 
 function DrawCallback() {

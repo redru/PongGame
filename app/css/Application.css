@@ -7,5 +7,13 @@ div.clear {
 }
 
 div canvas#gameBoard {
-    border:1px solid #000000;
+    border: 1px solid #000000;
+}
+
+.hidden {
+    display: none;
+}
+
+.float-left {
+    float: left;
 }

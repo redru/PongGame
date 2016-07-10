@@ -11,12 +11,28 @@
 </head>
 <body>
 
-<div class="canvasBox">
+<div id="register">
+    <h3>Welcome to Pong online.</h3>
+    <div id="registration">
+        <span>Please, enter your login name: </span><input id="_username" title="username" type="text"/>
+        <button type="button" onclick="Hall.join();">Enter</button>
+    </div>
+</div>
+
+<div id="hall" class="hidden">
+    <div id="waitingHall">
+        <span>Your id is:<span id="yourId"></span></span>
+    </div>
+</div>
+
+<div id="game" class="canvasBox hidden">
     <canvas id="gameBoard"></canvas>
 </div>
 
 <script src="http://localhost/lib/Constants.js"></script>
 <script src="http://localhost/lib/GameElements.js"></script>
+<script src="http://localhost/js/Router.js"></script>
+<script src="http://localhost/js/Hall.js"></script>
 <script src="http://localhost/js/Player.js"></script>
 <script src="http://localhost/js/Ball.js"></script>
 <script src="http://localhost/js/Logic.js"></script>
