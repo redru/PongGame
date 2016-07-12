@@ -1,7 +1,7 @@
 'use strict';
 const jwt           = require('jsonwebtoken');
 
-const secret = '';
+const secret = 'aaa';
 const jwtOpt = {
     algorithm: 'HS256',
     expiresIn: 60 /* seconds */ * 20 /* minuts */

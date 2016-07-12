@@ -1,0 +1,20 @@
+{
+  "name": "pong-game",
+  "description": "",
+  "private": true,
+  "authors": [
+    "redru <luzenobi@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/redru/PongGame",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "kjur-jsrsasign": "jsrsasign#^5.0.12"
+  }
+}

@@ -3,20 +3,19 @@ const Hall = {
     username: $('#_username'),
     registration: $('#registration'),
     hall: $('#hall'),
-    yourId: $('#yourId'),
+    connectedAs: $('#connectedAs'),
 
     join: () => {
         $.ajax({
             type: 'POST',
-            url: 'http://localhost/register',
+            url: '/register',
             data: JSON.stringify({ username: Hall.username.val() }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function(response) {
-                const data = response.data;
-
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function(data, status, response) {
                 if (data.status == 0) {
-                    Hall.yourId.html(data.result);
+                    Hall.connectedAs.html(data.result);
+                    localStorage.setItem('JWT', response.getResponseHeader('JWT'));
 
                     window.location.hash = 'hall';
                 } else if (data.status == 1) {

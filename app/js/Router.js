@@ -6,6 +6,11 @@
 
     $(document).ready(function DocumentReady() {
         window.location.hash = 'register';
+
+        const JWT = localStorage.getItem('JWT');
+        if (JWT) {
+            window.location.hash = 'hall';
+        }
     });
 
     $(window).on('hashchange',function(){
@@ -39,6 +44,7 @@
                     })
                 ]).then(function() {
                     hall.fadeIn();
+                    onHallEnter();
                 });
                 break;
 
@@ -66,4 +72,9 @@
                 break;
         }
     });
+
+    function onHallEnter() {
+
+    }
+
 })();
