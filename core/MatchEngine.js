@@ -11,7 +11,15 @@ MatchEngine.prototype.register = function(username) {
 };
 
 MatchEngine.prototype.unregister = function(username) {
-    delete this._connectedUsers[username];
+    for(let i = 0; i < this._connectedUsers.length; i++) {
+        if (this._connectedUsers[i].username == username) {
+            delete this._connectedUsers[i];
+            this._connectedUsers.splice(i, 1);
+            return true;
+        }
+    }
+
+    return false;
 };
 
 MatchEngine.prototype.isConnectedUser = function(username) {
@@ -23,17 +31,24 @@ MatchEngine.prototype.isConnectedUser = function(username) {
     return false;
 };
 
-MatchEngine.prototype.isConnectedUserCookie = function(userId) {
+MatchEngine.prototype.getConnectedUser = function(username) {
     for(let i = 0; i < this._connectedUsers.length; i++) {
-        if (this._connectedUsers[i].id == userId)
-            return true;
+        if (this._connectedUsers[i].username == username) {
+            return this._connectedUsers[i];
+        }
     }
 
-    return false;
+    return null;
 };
 
-MatchEngine.prototype.getConnectedUser = function(username) {
-    return this._connectedUsers[username];
+MatchEngine.prototype.getUsersList = function() {
+    const usernamesList = [];
+
+    this._connectedUsers.forEach(function(user) {
+        usernamesList.push(user.username);
+    });
+
+    return usernamesList;
 };
 
 const User = function(username) {

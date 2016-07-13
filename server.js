@@ -2,11 +2,10 @@
 const http              = require('http');
 const express           = require('express');
 const bodyParser        = require('body-parser');
-const Server            = require('socket.io');
 
+const Communication     = require('./core/Communication');
 const Match             = require('./core/MatchEngine');
 const Authentication    = require('./core/Authentication');
-// const io = new Server();
 
 const app = express();
 app.use(bodyParser.json());
@@ -23,6 +22,7 @@ app.post('/register', function Register(req, res) {
             });
         }).then(function(data) {
             console.log('Connected user', data.user.username);
+            communication.emitUserRegistered(data.user.username);
 
             res.header('JWT', data.token);
             return res.status(200).json({ status: 0, result: data.user.username });
@@ -35,6 +35,8 @@ app.post('/register', function Register(req, res) {
     }
 });
 
-http.createServer(app).listen(80, 'localhost', function CreationCallback() {
+const server = http.createServer(app).listen(80, 'localhost', function CreationCallback() {
     console.log('Server listening at http://localhost:80')
 });
+
+const communication = new Communication(server);

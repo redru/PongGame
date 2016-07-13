@@ -1,65 +1,41 @@
 'use strict';
 (function() {
-    const register = $('#register');
-    const hall = $('#hall');
-    const game = $('#game');
+    var register;
+    var hall;
+    var game;
+
+    var current;
 
     $(document).ready(function DocumentReady() {
-        window.location.hash = 'register';
+        register = $('#register');
+        hall = $('#hall');
+        game = $('#game');
+        current = register;
 
-        const JWT = localStorage.getItem('JWT');
-        if (JWT) {
-            window.location.hash = 'hall';
-        }
+        window.location.hash = 'register';
     });
 
     $(window).on('hashchange',function(){
         switch (window.location.hash) {
             case '#register':
-                return Promise.all([
-                    new Promise(function(resolve) {
-                        hall.fadeOut('medium', function() {
-                            return resolve();
-                        });
-                    }), new Promise(function(resolve) {
-                        game.fadeOut('medium', function() {
-                            return resolve();
-                        });
-                    })
-                ]).then(function() {
+                current.fadeOut('medium', function() {
+                    current = register;
                     register.fadeIn();
                 });
+
                 break;
 
             case '#hall':
-                return Promise.all([
-                    new Promise(function(resolve) {
-                        register.fadeOut('medium', function() {
-                            return resolve();
-                        });
-                    }), new Promise(function(resolve) {
-                        game.fadeOut('medium', function() {
-                            return resolve();
-                        });
-                    })
-                ]).then(function() {
+                current.fadeOut('medium', function() {
+                    current = hall;
                     hall.fadeIn();
-                    onHallEnter();
                 });
+
                 break;
 
             case '#game':
-                return Promise.all([
-                    new Promise(function(resolve) {
-                        hall.fadeOut('medium', function() {
-                            return resolve();
-                        });
-                    }), new Promise(function(resolve) {
-                        register.fadeOut('medium', function() {
-                            return resolve();
-                        });
-                    })
-                ]).then(function() {
+                current.fadeOut('medium', function() {
+                    current = game;
                     game.fadeIn();
                 });
 

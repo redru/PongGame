@@ -1,4 +1,6 @@
 'use strict';
+var socket;
+
 const Hall = {
     username: $('#_username'),
     registration: $('#registration'),
@@ -15,9 +17,10 @@ const Hall = {
             success: function(data, status, response) {
                 if (data.status == 0) {
                     Hall.connectedAs.html(data.result);
-                    localStorage.setItem('JWT', response.getResponseHeader('JWT'));
+                    sessionStorage.setItem('JWT', response.getResponseHeader('JWT'));
 
                     window.location.hash = 'hall';
+                    openSocket();
                 } else if (data.status == 1) {
                     alert('User already registered.');
                 } else {
@@ -26,5 +29,23 @@ const Hall = {
             }
         });
     }
-
 };
+
+function openSocket() {
+    socket = io.connect('http://localhost/');
+
+    socket.on('userRegistered', function(data) {
+        var list = '<br>';
+        data.users.forEach(function(user) {
+            list = list + user + '<br>';
+        });
+
+        $('#connectedUsers').html(list);
+    });
+
+    socket.on('found', function() {
+        console.log('Match found!');
+    });
+
+    socket.emit('JWT', { JWT: sessionStorage.getItem('JWT') });
+}
